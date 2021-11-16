@@ -23,7 +23,7 @@
 
 		if ( 'post' === get_post_type() ) : ?>
 		<div class="entry-meta">
-			<?php gutenberg_starter_theme_posted_on(); ?>
+			<?php bring_your_own_blocks_posted_on(); ?>
 		</div><!-- .entry-meta -->
 		<?php
 		endif; ?>
@@ -52,6 +52,6 @@
 	</div><!-- .entry-content -->
 
 	<footer class="entry-footer">
-		<?php gutenberg_starter_theme_entry_footer(); ?>
+		<?php bring_your_own_blocks_entry_footer(); ?>
 	</footer><!-- .entry-footer -->
 </article><!-- #post-<?php the_ID(); ?> -->
