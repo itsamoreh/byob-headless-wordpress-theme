@@ -9,3 +9,7 @@ WordPress core blocks are too complicated. If you're a full service agency and y
 ## Contributing
 
 Fixes and enhancements for the theme are welcome and encouraged! For more information about contributing, please visit [CONTRIBUTING.md](https://github.com/itsamoreh/bring-your-own-blocks/blob/master/CONTRIBUTING.md).
+
+## Credits
+
+[WordPress Gutenberg Starter Theme](https://github.com/WordPress/gutenberg-starter-theme)
