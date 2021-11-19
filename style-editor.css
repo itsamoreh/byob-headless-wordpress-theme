@@ -35,3 +35,14 @@
 	outline: 1px solid #000;
 }
 
+/*--------------------------------------------------------------
+## Fix core/freeform TinyMCE padding and outline issues.
+--------------------------------------------------------------*/
+div[data-type="core/freeform"] .block-library-classic__toolbar .mce-toolbar-grp>div {
+	padding: 0;
+}
+
+div[data-type="core/freeform"].is-selected .block-library-classic__toolbar {
+	border: 0;
+	outline: 1px solid #000;
+}
