@@ -12,4 +12,4 @@ Fixes and enhancements for the theme are welcome and encouraged! For more inform
 
 ## Credits
 
-[WordPress Gutenberg Starter Theme](https://github.com/WordPress/gutenberg-starter-theme)
+[WordPress' Gutenberg Starter Theme](https://github.com/WordPress/gutenberg-starter-theme)
