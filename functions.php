@@ -43,42 +43,29 @@ if ( ! function_exists( 'bring_your_own_blocks_setup' ) ) :
 		add_theme_support( 'post-thumbnails' );
 
 		// This theme uses wp_nav_menu() in one location.
-		register_nav_menus( array(
-			'menu-1' => esc_html__( 'Primary', 'bring-your-own-blocks' ),
-		) );
+		register_nav_menus(
+			array(
+				'menu-1' => esc_html__( 'Primary', 'bring-your-own-blocks' ),
+			)
+		);
 
 		/*
 		 * Switch default core markup for search form, comment form, and comments
 		 * to output valid HTML5.
 		 */
-		add_theme_support( 'html5', array(
-			'search-form',
-			'comment-form',
-			'comment-list',
-			'gallery',
-			'caption',
-		) );
-
-		// Set up the WordPress core custom background feature.
-		add_theme_support( 'custom-background', apply_filters( '_s_custom_background_args', array(
-			'default-color' => 'ffffff',
-			'default-image' => '',
-		) ) );
+		add_theme_support(
+			'html5',
+			array(
+				'search-form',
+				'comment-form',
+				'comment-list',
+				'gallery',
+				'caption',
+			)
+		);
 
 		// Add theme support for selective refresh for widgets.
 		add_theme_support( 'customize-selective-refresh-widgets' );
-
-		/**
-		 * Add support for core custom logo.
-		 *
-		 * @link https://codex.wordpress.org/Theme_Logo
-		 */
-		add_theme_support( 'custom-logo', array(
-			'height'      => 250,
-			'width'       => 250,
-			'flex-width'  => true,
-			'flex-height' => true,
-		) );
 	}
 endif;
 add_action( 'after_setup_theme', 'bring_your_own_blocks_setup' );
@@ -109,7 +96,7 @@ function bring_your_own_blocks_fonts_url() {
 	$notoserif = esc_html_x( 'on', 'Noto Serif font: on or off', 'bring-your-own-blocks' );
 
 	if ( 'off' !== $notoserif ) {
-		$font_families = array();
+		$font_families   = array();
 		$font_families[] = 'Noto Serif:400,400italic,700,700italic';
 
 		$query_args = array(
@@ -134,8 +121,6 @@ function bring_your_own_blocks_scripts() {
 
 	wp_enqueue_style( 'bring-your-own-blocks-fonts', bring_your_own_blocks_fonts_url() );
 
-	wp_enqueue_script( 'bring-your-own-blocks-navigation', get_template_directory_uri() . '/js/navigation.js', array(), '20151215', true );
-
 	wp_enqueue_script( 'bring-your-own-blocks-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -145,31 +130,16 @@ function bring_your_own_blocks_scripts() {
 add_action( 'wp_enqueue_scripts', 'bring_your_own_blocks_scripts' );
 
 /**
- * Implement the Custom Header feature.
+ * Remove customizer options.
  */
-require get_template_directory() . '/inc/custom-header.php';
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
-require get_template_directory() . '/inc/template-functions.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
+function ja_remove_customizer_options( $wp_customize ) {
+	$wp_customize->remove_section( 'static_front_page' );
+	$wp_customize->remove_section( 'title_tagline' );
+	$wp_customize->remove_section( 'nav' );
+	$wp_customize->remove_section( 'themes' );
+	$wp_customize->remove_section( 'custom_css' );
 }
+add_action( 'customize_register', 'ja_remove_customizer_options', 30 );
 
 /**
  * Functions that make Gutenberg easier to use.

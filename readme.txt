@@ -8,11 +8,11 @@ Stable tag: 1.0.0
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A simple WordPress theme for sites where editors don't need control of the design.
+An opinionated WordPress theme that gets rid of anything unnecessary for a headless WordPress site.
 
 == Description ==
 
-A simple WordPress theme for sites where editors don't need control of the design. Only the Classic/Freeform block is enabled. Bring your own blocks by [writing your own custom Gutenberg blocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) or by [creating ACF Gutenberg blocks](https://www.advancedcustomfields.com/resources/blocks/).
+BYOB is an opinionated WordPress theme that gets rid of anything unnecessary for a headless WordPress site. Bring your own blocks by [writing your own custom Gutenberg blocks](https://developer.wordpress.org/block-editor/how-to-guides/block-tutorial/writing-your-first-block-type/) or by [creating ACF Gutenberg blocks](https://www.advancedcustomfields.com/resources/blocks/).
 
 == Installation ==
 
