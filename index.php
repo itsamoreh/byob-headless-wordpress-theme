@@ -16,6 +16,6 @@
 
 	<main id="primary" class="site-main">
 
-		<p>Please navigate to the headless frontend.</p>
+		<p>Please navigate to the headless frontend or the <a href="/wp-admin">WordPress Admin Panel</a>.</p>
 
 	</main><!-- #primary -->

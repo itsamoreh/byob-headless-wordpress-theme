@@ -1,6 +1,6 @@
 <?php
 /**
- * bring-your-own-blocks functions and definitions
+ * Functions and definitions
  *
  * @link https://developer.wordpress.org/themes/basics/theme-functions/
  *
@@ -16,24 +16,6 @@ if ( ! function_exists( 'bring_your_own_blocks_setup' ) ) :
 	 * as indicating support for post thumbnails.
 	 */
 	function bring_your_own_blocks_setup() {
-		/*
-		 * Make theme available for translation.
-		 * Translations can be filed in the /languages/ directory.
-		 * If you're building a theme based on bring-your-own-blocks, use a find and replace
-		 * to change 'bring-your-own-blocks' to the name of your theme in all the template files.
-		 */
-		load_theme_textdomain( 'bring-your-own-blocks', get_template_directory() . '/languages' );
-
-		// Add default posts and comments RSS feed links to head.
-		add_theme_support( 'automatic-feed-links' );
-
-		/*
-		 * Let WordPress manage the document title.
-		 * By adding theme support, we declare that this theme does not use a
-		 * hard-coded <title> tag in the document head, and expect WordPress to
-		 * provide it for us.
-		 */
-		add_theme_support( 'title-tag' );
 
 		/*
 		 * Enable support for Post Thumbnails on posts and pages.
@@ -48,24 +30,6 @@ if ( ! function_exists( 'bring_your_own_blocks_setup' ) ) :
 				'menu-1' => esc_html__( 'Primary', 'bring-your-own-blocks' ),
 			)
 		);
-
-		/*
-		 * Switch default core markup for search form, comment form, and comments
-		 * to output valid HTML5.
-		 */
-		add_theme_support(
-			'html5',
-			array(
-				'search-form',
-				'comment-form',
-				'comment-list',
-				'gallery',
-				'caption',
-			)
-		);
-
-		// Add theme support for selective refresh for widgets.
-		add_theme_support( 'customize-selective-refresh-widgets' );
 	}
 endif;
 add_action( 'after_setup_theme', 'bring_your_own_blocks_setup' );
@@ -74,13 +38,23 @@ add_action( 'after_setup_theme', 'bring_your_own_blocks_setup' );
  * Set the content width in pixels, based on the theme's design and stylesheet.
  *
  * Priority 0 to make it available to lower priority callbacks.
- *
- * @global int $content_width
  */
 function bring_your_own_blocks_content_width() {
 	$GLOBALS['content_width'] = apply_filters( 'bring_your_own_blocks_content_width', 640 );
 }
 add_action( 'after_setup_theme', 'bring_your_own_blocks_content_width', 0 );
+
+/**
+ * Remove customizer options.
+ */
+function ja_remove_customizer_options( $wp_customize ) {
+	$wp_customize->remove_section( 'static_front_page' );
+	$wp_customize->remove_section( 'title_tagline' );
+	$wp_customize->remove_section( 'nav' );
+	$wp_customize->remove_section( 'themes' );
+	$wp_customize->remove_section( 'custom_css' );
+}
+add_action( 'customize_register', 'ja_remove_customizer_options', 30 );
 
 /**
  * Register Google Fonts
@@ -117,31 +91,27 @@ function bring_your_own_blocks_fonts_url() {
 function bring_your_own_blocks_scripts() {
 	wp_enqueue_style( 'gutenbergbase-style', get_stylesheet_uri() );
 
-	wp_enqueue_style( 'bring-your-own-blocksblocks-style', get_template_directory_uri() . '/css/blocks.css' );
+	wp_enqueue_style( 'bring-your-own-blocksblocks-style', get_template_directory_uri() . '/blocks.css' );
 
 	wp_enqueue_style( 'bring-your-own-blocks-fonts', bring_your_own_blocks_fonts_url() );
-
-	wp_enqueue_script( 'bring-your-own-blocks-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
-
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
 }
 add_action( 'wp_enqueue_scripts', 'bring_your_own_blocks_scripts' );
 
 /**
- * Remove customizer options.
+ * Disable Gutenberg's default fullscreen mode.
  */
-function ja_remove_customizer_options( $wp_customize ) {
-	$wp_customize->remove_section( 'static_front_page' );
-	$wp_customize->remove_section( 'title_tagline' );
-	$wp_customize->remove_section( 'nav' );
-	$wp_customize->remove_section( 'themes' );
-	$wp_customize->remove_section( 'custom_css' );
+function bring_your_own_blocks_disable_editor_fullscreen_mode() {
+	$script = "window.onload = function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } }";
+	wp_add_inline_script( 'wp-blocks', $script );
 }
-add_action( 'customize_register', 'ja_remove_customizer_options', 30 );
+add_action( 'enqueue_block_editor_assets', 'bring_your_own_blocks_disable_editor_fullscreen_mode' );
 
 /**
- * Functions that make Gutenberg easier to use.
+ * Enable custom editor styles.
  */
-require get_template_directory() . '/inc/byob.php';
+function bring_your_own_blocks_enable_editor_styles() {
+	// Add support for editor styles.
+	add_theme_support( 'editor-styles' );
+	add_editor_style( 'style-editor.css' );
+}
+add_action( 'after_setup_theme', 'bring_your_own_blocks_enable_editor_styles' );
