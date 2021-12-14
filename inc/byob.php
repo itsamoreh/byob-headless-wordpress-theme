@@ -6,18 +6,6 @@
  */
 
 /**
- * Only allow certain blocks to be used.
- *
- * @param array $allowed_blocks Blocks to allow.
- */
-function bring_your_own_blocks_allowed_block_types( $allowed_blocks ) {
-	return array(
-		'core/freeform',
-	);
-}
-add_filter( 'allowed_block_types', 'bring_your_own_blocks_allowed_block_types' );
-
-/**
  * Disable Gutenberg's default fullscreen mode.
  */
 function bring_your_own_blocks_disable_editor_fullscreen_mode() {
