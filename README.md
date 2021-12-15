@@ -1,4 +1,4 @@
-# Bring Your Own Blocks Headless WordPress Theme
+# BYOB Headless WordPress Theme
 
 ![Theme screenshot image](screenshot.png?raw=true "Theme Screenshot")
 
