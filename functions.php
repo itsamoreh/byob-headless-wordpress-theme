@@ -16,7 +16,6 @@ if ( ! function_exists( 'bring_your_own_blocks_setup' ) ) :
 	 * as indicating support for post thumbnails.
 	 */
 	function bring_your_own_blocks_setup() {
-
 		/*
 		 * Enable support for Post Thumbnails on posts and pages.
 		 *
@@ -47,43 +46,16 @@ add_action( 'after_setup_theme', 'bring_your_own_blocks_content_width', 0 );
 /**
  * Remove customizer options.
  */
-function ja_remove_customizer_options( $wp_customize ) {
+function bring_your_own_blocks_remove_customizer_options() {
+	global $wp_customize;
+
 	$wp_customize->remove_section( 'static_front_page' );
 	$wp_customize->remove_section( 'title_tagline' );
 	$wp_customize->remove_section( 'nav' );
 	$wp_customize->remove_section( 'themes' );
 	$wp_customize->remove_section( 'custom_css' );
 }
-add_action( 'customize_register', 'ja_remove_customizer_options', 30 );
-
-/**
- * Register Google Fonts
- */
-function bring_your_own_blocks_fonts_url() {
-	$fonts_url = '';
-
-	/*
-	 *Translators: If there are characters in your language that are not
-	 * supported by Noto Serif, translate this to 'off'. Do not translate
-	 * into your own language.
-	 */
-	$notoserif = esc_html_x( 'on', 'Noto Serif font: on or off', 'bring-your-own-blocks' );
-
-	if ( 'off' !== $notoserif ) {
-		$font_families   = array();
-		$font_families[] = 'Noto Serif:400,400italic,700,700italic';
-
-		$query_args = array(
-			'family' => urlencode( implode( '|', $font_families ) ),
-			'subset' => urlencode( 'latin,latin-ext' ),
-		);
-
-		$fonts_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
-	}
-
-	return $fonts_url;
-
-}
+add_action( 'customize_register', 'bring_your_own_blocks_remove_customizer_options', 30 );
 
 /**
  * Enqueue scripts and styles.
@@ -92,8 +64,6 @@ function bring_your_own_blocks_scripts() {
 	wp_enqueue_style( 'gutenbergbase-style', get_stylesheet_uri() );
 
 	wp_enqueue_style( 'bring-your-own-blocksblocks-style', get_template_directory_uri() . '/blocks.css' );
-
-	wp_enqueue_style( 'bring-your-own-blocks-fonts', bring_your_own_blocks_fonts_url() );
 }
 add_action( 'wp_enqueue_scripts', 'bring_your_own_blocks_scripts' );
 
