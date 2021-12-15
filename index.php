@@ -14,8 +14,25 @@
 
 ?>
 
+	<style>
+		body {
+			font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+		}
+
+		.site-main {
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	</style>
+
 	<main id="primary" class="site-main">
 
+	<?php if ( is_customize_preview() ) : ?>
+		<p>Please navigate to the headless frontend to see your changes.</p>
+	<?php else : ?>
 		<p>Please navigate to the headless frontend or the <a href="/wp-admin">WordPress Admin Panel</a>.</p>
+	<?php endif; ?>
 
 	</main><!-- #primary -->
